@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     marginBottom: 16,
   },
 });
