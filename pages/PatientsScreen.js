@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export function PatientsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>pacientes</Text>
+      <Text style={styles.title}>Pacientes</Text>
     </View>
   );
 }

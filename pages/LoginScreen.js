@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Logo from '../assets/icon.png'
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -30,8 +31,8 @@ export default function LoginScreen() {
     <View style={styles.container}>
 
 <Image
-  style={{ width: 340, height: 180, marginBottom: 150, marginTop: -150 }}
-  source={{ uri: "https://i.imgur.com/zIjUXo1.png" }}
+  style={{ width: 340, height: 170, marginBottom: 150, marginTop: -150, marginLeft: 12 }}
+  source={ Logo }
 />
 
       <Text style={styles.label}>Email:</Text>

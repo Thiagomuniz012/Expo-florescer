@@ -2,20 +2,27 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
-import { FileScreen } from './FileScreen';
-import { ProfessionalScreen } from './ProfessionalScreen';
-import { MenuScreen } from './MenuScreen';
-import { CalendarScreen } from './CalendarScreen';
-import { PatientsScreen } from './PatientsScreen';
+import { FileScreen } from '../pages/FileScreen';
+import { ProfessionalScreen } from '../pages/ProfessionalScreen';
+import { MenuScreen } from '../pages/MenuScreen';
+import { CalendarScreen } from '../pages/CalendarScreen';
+import { PatientsScreen } from '../pages/PatientsScreen';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabMenu() {
   return (
     <Tab.Navigator
-    tabBarOptions={{
-      activeTintColor: '#001737',
-      inactiveTintColor: '#FF914D'
+    screenOptions={{
+      tabBarStyle: {
+        height: 60,
+      },
+      tabBarActiveTintColor: '#001737',
+      tabBarInactiveTintColor: '#FF914D',
+      tabBarLabelStyle: {
+        fontSize: 13,
+        marginBottom: 4
+      },
     }}
     >
       <Tab.Screen
