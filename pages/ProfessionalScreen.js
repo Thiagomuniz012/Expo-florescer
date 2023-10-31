@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,34 +12,13 @@ import {
   Picker,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
 
 export function ProfessionalScreen() {
-  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  const profissionais = [
-    {
-      id: 1,
-      nome: 'Felipe Brunoro',
-      email: 'profissional1@email.com',
-      formacao: 'Psicologo',
-      crp: '12345',
-      foto: '[]',
-    },
-    {
-      id: 2,
-      nome: 'Ana Leticia',
-      email: 'profissional2@email.com',
-      formacao: 'Terapeuta',
-      crp: '67890',
-      foto: '[]',
-    },
-  ];
 
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
@@ -53,9 +32,62 @@ export function ProfessionalScreen() {
   const [cidade, setCidade] = useState('');
   const [cep, setCEP] = useState('');
 
-  const handleSubmit = () => {
+  const [profissionais, setProfissionais] = useState([]);
 
+  useEffect(() => {
+    fetch('http://localhost:8080/profissional')
+      .then((response) => response.json())
+      .then((data) => setProfissionais(data))
+      .catch((error) => console.error('Erro ao carregar os profissionais:', error));
+  }, []);
+
+  const handleSubmit = () => {
+    const profissionalData = {
+      nome,
+      dataNascimento,
+      cpf,
+      formacaoAcademica,
+      especializacao,
+      crp,
+      rua,
+      numeroCasa,
+      bairro,
+      cidade,
+      cep,
+    };
+
+    fetch('http://localhost:8080/profissional', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profissionalData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Profissional criado:', data);
+
+        setProfissionais([...profissionais, data]);
+
+        setNome('');
+        setDataNascimento('');
+        setCPF('');
+        setFormacaoAcademica('Formação Acadêmica');
+        setEspecializacao('Especialização');
+        setCRP('');
+        setRua('');
+        setNumeroCasa('');
+        setBairro('');
+        setCidade('');
+        setCEP('');
+
+        toggleModal();
+      })
+      .catch((error) => {
+        console.error('Erro ao criar o profissional:', error);
+      });
   };
+  
 
   const formatCPF = (text) => {
     let formattedCPF = text.replace(/\D/g, '');
@@ -89,32 +121,32 @@ export function ProfessionalScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profissionais</Text>
-
+  
       <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
         <Icon name="plus" size={30} color="white" />
       </TouchableOpacity>
-
+  
       <FlatList
-        data={profissionais}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.professionalItem}>
-            <Image source={{ uri: item.foto }} style={styles.professionalPhoto} />
+  data={profissionais}
+  keyExtractor={(item) => item.id.toString()}
+  renderItem={({ item }) => (
+      <View style={styles.professionalItem}>
+        <Image source={{ uri: item.foto }} style={styles.professionalPhoto} />
 
-            <View style={styles.professionalDetails}>
-              <View>
-                <Text style={styles.professionalName}>{item.nome}</Text>
-                <Text style={styles.professionalEmail}>{item.email}</Text>
-              </View>
-
-              <View>
-                <Text style={styles.professionalFormacao}>{item.formacao}</Text>
-                <Text style={styles.professionalCRP}>{item.crp}</Text>
-              </View>
-            </View>
+        <View style={styles.professionalDetails}>
+          <View>
+            <Text style={styles.professionalName}>{item.nome}</Text>
+            <Text style={styles.professionalEmail}>{item.email}</Text>
           </View>
-        )}
-      />
+
+          <View>
+            <Text style={styles.professionalFormacao}>{item.formacaoAcademica}</Text>
+            <Text style={styles.professionalCRP}>{item.crp}</Text>
+          </View>
+        </View>
+      </View>
+  )}
+/>
 
       <Modal animationType="slide" transparent={true} visible={isModalVisible}>
         <View style={styles.modalContainer}>
