@@ -35,7 +35,7 @@ export function ProfessionalScreen() {
   const [profissionais, setProfissionais] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/profissional')
+    fetch('http://localhost:3000/api/mongodb-data/')
       .then((response) => response.json())
       .then((data) => setProfissionais(data))
       .catch((error) => console.error('Erro ao carregar os profissionais:', error));
@@ -56,7 +56,7 @@ export function ProfessionalScreen() {
       cep,
     };
 
-    fetch('http://localhost:8080/profissional', {
+    fetch('http://localhost:3000/api/mongodb-data/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +87,6 @@ export function ProfessionalScreen() {
         console.error('Erro ao criar o profissional:', error);
       });
   };
-  
 
   const formatCPF = (text) => {
     let formattedCPF = text.replace(/\D/g, '');
@@ -127,38 +126,38 @@ export function ProfessionalScreen() {
       </TouchableOpacity>
   
       <FlatList
-  data={profissionais}
-  keyExtractor={(item) => item.id.toString()}
-  renderItem={({ item }) => (
-      <View style={styles.professionalItem}>
-        <Image source={{ uri: item.foto }} style={styles.professionalPhoto} />
+        data={profissionais}
+        keyExtractor={(item) => "" + item._id}
+        renderItem={({ item }) => (
+          <View style={styles.professionalItem}>
+            <Image source={{ uri: item.foto }} style={styles.professionalPhoto} />
 
-        <View style={styles.professionalDetails}>
-          <View>
-            <Text style={styles.professionalName}>{item.nome}</Text>
-            <Text style={styles.professionalEmail}>{item.email}</Text>
-          </View>
+            <View style={styles.professionalDetails}>
+              <View>
+                <Text style={styles.professionalName}>{item.nome}</Text>
+                <Text style={styles.professionalEmail}>{item.email}</Text>
+              </View>
 
-          <View>
-            <Text style={styles.professionalFormacao}>{item.formacaoAcademica}</Text>
-            <Text style={styles.professionalCRP}>{item.crp}</Text>
+              <View>
+                <Text style={styles.professionalFormacao}>{item.formacaoAcademica}</Text>
+                <Text style={styles.professionalCRP}>{item.crp}</Text>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-  )}
-/>
+        )}
+      />
 
       <Modal animationType="slide" transparent={true} visible={isModalVisible}>
         <View style={styles.modalContainer}>
           <ScrollView style={styles.modalContent}>
-          <View style={styles.header}>
-  <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
-    <Icon name="chevron-left" size={30} color="black" />
-  </TouchableOpacity>
-  <View style={styles.titleContainer}>
-    <Text style={styles.title}>Formulário de Profissional</Text>
-  </View>
-</View>
+            <View style={styles.header}>
+              <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
+                <Icon name="chevron-left" size={30} color="black" />
+              </TouchableOpacity>
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>Formulário de Profissional</Text>
+              </View>
+            </View>
             <TextInput
               style={styles.input}
               placeholder="Nome Completo"
@@ -236,8 +235,6 @@ export function ProfessionalScreen() {
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
               <Text style={styles.buttonText}>Enviar</Text>
             </TouchableOpacity>
-
-            
           </ScrollView>
         </View>
       </Modal>
@@ -279,7 +276,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 6,
   },
-  
   professionalPhoto: {
     width: 40,
     height: 40,
@@ -346,10 +342,12 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     marginRight: 10,
-    marginBottom: 15
+    marginBottom: 15,
   },
   titleContainer: {
     flex: 1,
     justifyContent: 'center',
   },
 });
+
+export default ProfessionalScreen;
