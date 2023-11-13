@@ -15,30 +15,34 @@ export default function TabMenu() {
     <Tab.Navigator
     screenOptions={{
       tabBarStyle: {
-        height: 60,
+        height: 80,
       },
       tabBarActiveTintColor: '#001737',
       tabBarInactiveTintColor: '#FF914D',
       tabBarLabelStyle: {
         fontSize: 13,
-        marginBottom: 4
+        marginBottom: -11
+      },
+      tabBarStyle: {
+        height: 70,
+        top: 0,
       },
     }}
     >
       <Tab.Screen
-        name="Menu"
+        name="ㅤ"
         component={MenuScreen}
         options={{
           headerShown: false,
-
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
         }}
+        style={styles.desenho}
       />
 
 <Tab.Screen
-        name="Calendário"
+        name="ㅤㅤㅤㅤㅤㅤ"
         component={CalendarScreen}
         options={{
           headerShown: false,
@@ -46,10 +50,11 @@ export default function TabMenu() {
             <Icon name="calendar" color={color} size={size} />
           ),
         }}
+        style={styles.desenho}
       />
 
       <Tab.Screen
-        name="Arquivo"
+        name="ㅤㅤㅤㅤ"
         component={FileScreen}
         options={{
           headerShown: false,
@@ -57,10 +62,11 @@ export default function TabMenu() {
             <Icon name="file" color={color} size={size} />
           ),
         }}
+        style={styles.desenho}
       />
 
     <Tab.Screen
-        name="Profissionais"
+        name="ㅤㅤㅤ"
         component={ProfessionalScreen}
         options={{
           headerShown: false,
@@ -68,10 +74,11 @@ export default function TabMenu() {
             <Icon name="users" color={color} size={size} />
           ),
         }}
+        style={styles.desenho}
       />
 
     <Tab.Screen
-        name="Pacientes"
+        name="ㅤㅤ"
         component={PatientsScreen}
         options={{
           headerShown: false,
@@ -79,20 +86,13 @@ export default function TabMenu() {
             <Icon name="user" color={color} size={size} />
           ),
         }}
+        style={styles.desenho}
       />
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 16,
-  },
+  
 });
+
