@@ -104,6 +104,16 @@ export function ProfessionalScreen() {
     setCPF(formattedCPF);
   };
 
+  const formatCEP = (text) => {
+    let formattedCEP = text.replace(/\D/g, '');
+
+    if (formattedCEP.length > 5) {
+      formattedCEP = formattedCEP.substring(0, 5) + '-' + formattedCEP.substring(5);
+    }
+
+    setCEP(formattedCEP);
+  };
+
   const formatDataNascimento = (text) => {
     let formattedDataNascimento = text.replace(/\D/g, '');
 
@@ -115,6 +125,16 @@ export function ProfessionalScreen() {
     }
 
     setDataNascimento(formattedDataNascimento);
+  };
+
+  const handleTextChange = (text) => {
+    const newText = text.replace(/[0-9]/g, '');
+    setNome(newText);
+  };
+
+  const handleChange = (text) => {
+    setNome(text);
+    handleTextChange(text);
   };
 
   return (
@@ -162,7 +182,7 @@ export function ProfessionalScreen() {
               style={styles.input}
               placeholder="Nome Completo"
               value={nome}
-              onChangeText={(text) => setNome(text)}
+              onChangeText={(text) => handleChange(text)}
             />
             <TextInput
               style={styles.input}
@@ -170,6 +190,7 @@ export function ProfessionalScreen() {
               value={dataNascimento}
               onChangeText={(text) => formatDataNascimento(text)}
               keyboardType="numeric"
+              maxLength={10}
             />
             <TextInput
               style={styles.input}
@@ -177,6 +198,7 @@ export function ProfessionalScreen() {
               value={cpf}
               onChangeText={(text) => formatCPF(text)}
               keyboardType="numeric"
+              maxLength={14}
             />
             <Picker
               selectedValue={formacaoAcademica}
@@ -230,7 +252,8 @@ export function ProfessionalScreen() {
               style={styles.input}
               placeholder="CEP"
               value={cep}
-              onChangeText={(text) => setCEP(text)}
+              onChangeText={(text) => formatCEP(text)}
+              maxLength={9}
             />
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
               <Text style={styles.buttonText}>Enviar</Text>
