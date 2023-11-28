@@ -33,10 +33,10 @@ export default {
     fazerLogin() {
       if (this.loginData.email === 'admin@gmail.com' && this.loginData.senha === '1234') {
         this.setUserRole('admin');
-        this.$router.push('/Inicial');
+        this.$router.push('/Menu');
       } else if (this.loginData.email === 'user@gmail.com' && this.loginData.senha === '1234') {
         this.setUserRole('user');
-        this.$router.push('/Inicial');
+        this.$router.push('/Menu');
       } else {
         alert('Credenciais inválidas. Tente novamente.');
       }

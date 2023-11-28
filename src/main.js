@@ -7,6 +7,7 @@ import Arquivo from './pages/Arquivo.vue';
 import Login from './Pages/Login.vue';
 import Profissionais from './Pages/Profissionais.vue';
 import Pacientes from './Pages/Pacientes.vue';
+import Configuracoes from './Pages/Configuracoes.vue';
 import '/node_modules/font-awesome/css/font-awesome.min.css'
 
 //Página onde são definidas as rotas
@@ -18,6 +19,7 @@ const routes = [
   { path: '/Arquivo', component: Arquivo },
   { path: '/Profissionais', component: Profissionais },
   { path: '/Pacientes', component: Pacientes },
+  { path: '/Configuracoes', component: Configuracoes },
 ];
 
 const router = createRouter({
